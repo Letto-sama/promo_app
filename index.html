@@ -1,0 +1,134 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Formulario de Registro PromoAPP</title>
+<link href="css/estilos.css" rel="stylesheet" type="text/css">
+<script src='https://www.google.com/recaptcha/api.js'></script>
+  <script type="text/javascript">
+    var captcha=false;
+      function datacallback() {    
+        captcha=true;
+      };
+      </script>
+
+   
+    
+    <script language="javascript" src="js/jquery.min.js"></script>
+    <script language="javascript" src="js/jquery.blockUI.js"></script>
+ <!--    <script language="javascript" type="text/javascript">
+  <!--  if ((f.j_captcha_response.value=="")||(f.numeracion.value=="")) 
+  
+
+
+    
+    function Enviar(){
+      f=document.theForm;
+       /* if ((f.j_captcha_response.value=="")||(f.IMEI.value==""))
+          {
+        document.getElementById("block").style.display = "none";
+            alert("Debe introducir todos los datos.");            
+            f.j_captcha_response.focus(); 
+            return;
+          }*/     
+        if (captcha == false) {
+          alert("Debe validar el captcha.");
+          return;
+        }
+          
+        var str = f.IMEI.value;       
+      if(str.length < 15){
+        document.getElementById("block").style.display = "none";
+        alert("IMEI incompleto.");
+        return;
+      }
+      $.blockUI({ message: '<h1><img width="100px" height="100px" src="images/cargando.gif" /></h1>' });
+        f.submit();
+      }
+    
+    function validarNumeros(e){
+      tecla = (document.all) ? e.keyCode : e.which;
+        if (tecla==8){//Tecla de retroceso para borrar
+            return true;
+        }                 
+        pattern =/[0-9]/; // solo numeros
+        tecla_final = String.fromCharCode(tecla);
+        return pattern.test(tecla_final);     
+    } 
+    function deshabilitarMenuContextual(){   
+        return false 
+    } 
+    
+    document.oncontextmenu=deshabilitarMenuContextual
+    
+      
+    </script> -->
+<script type="text/javascript">
+
+
+$('#enviar').on('click', function(){
+var files = document.getElementById('file').files;
+  if (files.length > 0) {
+    getBase64(files[0]); //aquí se llama a la funcion
+  }
+});
+</script>
+    
+<script type="text/javascript">
+   function getBase64(file) {
+   var reader = new FileReader();
+   reader.readAsDataURL(file);
+   reader.onload = function () {
+     alert(reader.result);
+   };
+   reader.onerror = function (error) {
+     alert('Error: ', error);
+   };
+}
+
+</script>
+
+
+</head>
+
+<body>
+
+
+
+<div class="group">
+  <form action="php/registro.php" method="POST">
+  <h2><em>Formulario de Registro</em></h2>
+  
+     
+      <label for="nombre">Nombre <span><em>(requerido)</em></span></label>
+      <input type="text" name="nombre" class="form-input" required/>   
+      
+      <label for="cc">Cc <span><em>(requerido)</em></span></label>
+      <input type="text" name="cc" class="form-input" required/> 
+
+      <label for="punto_venta">Punto de Venta <span><em>(requerido)</em></span></label>
+      <input type="text" name="punto_venta" class="form-input" required/>
+
+      <label for="numero_factura">Numero de Factura <span><em>(requerido)</em></span></label>
+      <input type="text" name="numero_factura" class="form-input" required/> 
+
+      <label for="foto_fact">Foto de la factura<span><em>(requerido)</em></span></label>
+      <input  id="file" type="file" name="foto_fact" accept="image/*" capture="camera">
+
+       <label for="numero_cel">Numero de Celular <span><em>(requerido)</em></span></label>
+      <input type="text" name="numero_cel" class="form-input" required/>                
+
+
+      <label for="email">Email <span><em>(requerido)</em></span></label>
+      <input type="email" name="email" class="form-input" />
+
+      <div class="g-recaptcha" data-sitekey="6Lc6MysUAAAAAJ30wXcypuJVPnkkPqSHg-h4skhs"></div>
+
+
+     <center> <input id="enviar" class="form-btn" name="submit" type="submit" value="Enviar" /></center>
+    </p>
+  </form>
+</div>
+</body>
+</html>
